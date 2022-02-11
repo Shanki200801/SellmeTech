@@ -223,8 +223,17 @@ def logout():
 
 @app.route("/userpage")
 def userpage():
-    if current_user.is_authenticated or flag == 0:
+    if current_user.is_authenticated and flag == 1:
         return render_template("userpage.html")
+    elif flag == 0:
+        return redirect(url_for("adminpage"))
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/adminpage")
+def adminpage():
+    if flag == 0:
+        return render_template("adminpage.html")
     else:
         return redirect(url_for("login"))
 
