@@ -1,0 +1,63 @@
+@import url(https://fonts.googleapis.com/css?family=Sofia);
+@import url(https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Satisfy&display=swap);
+
+  p {
+    font-family: "Sofia", sans-serif;
+  }
+
+  h3 {
+    font-family: "Sofia", sans-serif;
+  }
+
+  .text-muted {
+    font-family:"Comforter Brush", cursive;
+  }
+
+  #cdh {
+    height: 60px;
+  }
+
+  a:link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+
+  h5 {
+    font-weight: bolder;
+  }
+
+  #styleTitle {
+    font-family: 'Satisfy', cursive;
+    color: black;
+    font-size: larger;
+  }
+
+  #styleTitleGrey {
+    font-family: 'Satisfy', cursive;
+    color: grey;
+    opacity: 50%;
+    font-size: larger;
+  }
+
+  li {
+    color: black;
+  }
+
+  #tBlack {
+    color: black;
+  }
+  
+  #GradientBlueBG {
+    background-color: #8989bb;
+    background-image: linear-gradient(315deg, #8989bb 0%, #a5a4cb 74%);
+  }
+
+  #bg1 {
+    background: rgba(0,0,0,0.5);
+  }
+
+  #bg2 {
+    background: rgba(0,0,0,0.25);
+  }

@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Sofia);
+@import url(https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap);
+  p {
+    font-family: "Sofia", sans-serif;
+  }
+
+  h3 {
+    font-family: "Sofia", sans-serif;
+  }
+
+  .text-muted {
+    font-family:"Comforter Brush", cursive;
+  }
+
+  
