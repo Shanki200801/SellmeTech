@@ -221,6 +221,12 @@ def logout():
         flag = 1
     return redirect(url_for("index"))
 
+@app.route("/userpage")
+def userpage():
+    if current_user.is_authenticated or flag == 0:
+        return render_template("userpage.html")
+    else:
+        return redirect(url_for("login"))
 
 @app.route("/resultsPage/<search_stringss>", methods=["POST", "GET"])
 def resultsPage(search_stringss):
