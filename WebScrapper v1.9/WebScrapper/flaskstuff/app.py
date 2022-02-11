@@ -257,64 +257,13 @@ def resultsPage(search_stringss):
                     FeaturelistF=[]
                     FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
                     AmazonList = BS4Azn.amzLists(search_stringss, i)
+                    
                     AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
                     FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
-
-                    case={"nill":999999.9, "1":0.0, "2":15000.00, "3":20000.0, "4":30000.0, "5":40000.0}
-                    limit=case[form_val]
-                    
-
-                    for j in range(len(AmazonList[0])):
-                        if AmazonList[1][j] > limit:
-                            del AmazonList[:][j]
-
-                    for j in range(len(FlipkartList[0])):
-                        if FlipkartList[1][j] > limit:
-                            del FlipkartList[:][j]
                     
                     AmazonList[1] = [add_char(j) for j in AmazonList[1]]
                     FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
 
-                    # if radio1_val == "2":
-
-                    #     for j in range(len(AmazonList[0])):
-                    #         if AmazonList[1][j] < 15000 or AmazonList[1][j] > 30000:
-                    #             del AmazonList[:][j]
-
-                    #     for j in range(len(FlipkartList[0])):
-                    #         if FlipkartList[1][j] < 15000 or FlipkartList[1][j] > 30000:
-                    #             del FlipkartList[:][j]
-
-                    # if radio1_val == '3':
-
-                    #     for j in range(len(AmazonList[0])):
-                    #         if AmazonList[1][j] > 30000 :
-                    #             del AmazonList[:][j]
-
-                    #     for j in range(len(FlipkartList[0])):
-                    #         if FlipkartList[1][j] > 30000:
-                    #             del FlipkartList[:][j]
-
-                    # if radio1_val == '4':
-
-                    #     for j in range(len(AmazonList[0])):
-                    #         if AmazonList[1][j] < 30000:
-                    #             del AmazonList[:][j]
-
-                    #     for j in range(len(FlipkartList[0])):
-                    #         if FlipkartList[1][j] < 30000:
-                    #             del FlipkartList[:][j]
-
-                    # for j in range(i):
-                    #     FeaturelistA.append(featureGrab.getAmzFeatures(AmazonList[2][j]))
-                    #     FeaturelistF.append(featureGrab.getFpkFeatures(FlipkartList[2][j]))           
-                    #return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList,featuresA=FeaturelistA,featuresF=FeaturelistF)
-                    # return render_template(
-                    #     "results.html",
-                    #     search_stringss=search_stringss,
-                    #     listF=FlipkartList,
-                    #     listA=AmazonList,
-                    # )
                     for k in range(10):
                         try:
                             for j in range(i):
