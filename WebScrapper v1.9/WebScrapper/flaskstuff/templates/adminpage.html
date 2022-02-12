@@ -92,7 +92,7 @@
                             <div style="text-align: justify;"><br>
                               <table align="center">
                                 <tr>
-                                  <td><h1>admin page</h1></td>
+                                  <td>Name</td>
                                   <td>{{current_user.name}}</td>
                                 </tr>
                                 <tr>
@@ -100,8 +100,31 @@
                                   <td>{{current_user.email}}</td>
                                 </tr>
                                 <tr>
-                                  <td colspan="2" class="td_merged_btn"><button>Logout</button></td>
+                                  <td colspan="2" class="td_merged_btn">
+                                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                                  </td>
                                 </tr>
+                              </table><br>
+                              <h1 style="text-align: center; margin-top: 70px;">User database</h1><br>
+                              <table align="center">
+                                <thead>
+                                  <tr>
+                                    <th>user ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Profile_pic</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for row in tablee %} 
+                                    <tr>
+                                      <td>{{row[0]}}</td>
+                                      <td>{{row[1]}}</td>
+                                      <td>{{row[2]}}</td>
+                                      <td><img src='{{row[3]}}' width="80px"></td>
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
                               </table>
                                 
                             </div>

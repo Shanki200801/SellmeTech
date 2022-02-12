@@ -233,7 +233,8 @@ def userpage():
 @app.route("/adminpage")
 def adminpage():
     if flag == 0:
-        return render_template("adminpage.html")
+        
+        return render_template("adminpage.html",tablee=User.get_all())
     else:
         return redirect(url_for("login"))
 

@@ -32,3 +32,10 @@ class User(UserMixin):
             (id_, name, email, profile_pic),
         )
         db.commit()
+    
+    @staticmethod
+    def get_all():
+        db=get_db()
+        userdata=db.execute("SELECT * FROM user").fetchall()
+        return userdata
+        
