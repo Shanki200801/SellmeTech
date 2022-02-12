@@ -55,3 +55,11 @@ td{
     padding-right:25px;
     align-items: center;
 }
+th{
+    color: #f7f8f8;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+    padding-right:25px;
+    font-style: italic;
+}

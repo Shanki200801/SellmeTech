@@ -92,7 +92,7 @@
                             <div style="text-align: justify;"><br>
                               <table align="center">
                                 <tr>
-                                  <td><h1>admin page</h1></td>
+                                  <td>Name</td>
                                   <td>{{current_user.name}}</td>
                                 </tr>
                                 <tr>
@@ -100,8 +100,31 @@
                                   <td>{{current_user.email}}</td>
                                 </tr>
                                 <tr>
-                                  <td colspan="2" class="td_merged_btn"><button>Logout</button></td>
+                                  <td colspan="2" class="td_merged_btn">
+                                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                                  </td>
                                 </tr>
+                              </table><br>
+                              <h1 style="text-align: center; margin-top: 70px;">User database</h1><br>
+                              <table align="center">
+                                <thead>
+                                  <tr>
+                                    <th>user ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Profile_pic</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for row in tablee %} 
+                                    <tr>
+                                      <td>{{row[0]}}</td>
+                                      <td>{{row[1]}}</td>
+                                      <td>{{row[2]}}</td>
+                                      <td><img src='{{row[3]}}' width="80px"></td>
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
                               </table>
                                 
                             </div>
@@ -111,5 +134,62 @@
             </div>
         </section>
         <!-- header section ends --> 
+        <section class="info_section">
+          <div class="container">
+            <div class="row info_main_row">
+              <div class="col-md-4 info_col">
+                <h5>
+                  About Us
+                </h5>
+                <p>
+                  We are a team of 4 young aspiring developers making a website to learn about
+                  the basics of HTML CSS and other relavent technologies. This web site was developed as a 
+                  course requirement mini-project. We have used technologies like python and JS in addition to
+                  HTML and CSS to service as the backbone of this project.  
+                </p>
+              </div>
+             
+              <div class="col-md-4 col-lg-3 mx-auto info_col" style="position: relative; left: 250px;">
+                <h5>
+                  For any queries
+                </h5>
+                <div class="info_contact">
+                  <a href="#">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>
+                      Bangalore 560031
+                    </span>
+                  </a>
+                  <a href="tel:01123456789">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>
+                      Call 080-526792
+                    </span>
+                  </a>
+                  <a href="mailto:info@yourdomain.com">
+                    <i class="fa fa-envelope"></i>
+                    <span>
+                      shashank200801@gmail.com
+                    </span>
+                  </a>
+                </div>
+                <div class="social_box">
+                  <a href="">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                  </a>
+                  <a href="">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 </body>
 </html>
