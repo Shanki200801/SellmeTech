@@ -24,11 +24,6 @@ import featureGrab
 from db import init_db_command
 from user import User
 
-form_val="nill"
-# def triall():
-#     test_var='works'
-#     return test_var
-
 # Configuration
 GOOGLE_CLIENT_ID = "755960925170-ittebt844scr9v19617vqmf64b1a403c.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = "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"
@@ -240,16 +235,7 @@ def adminpage():
 @app.route("/resultsPage/<search_stringss>", methods=["POST", "GET"])
 def resultsPage(search_stringss):
     if request.method == "POST":
-        global form_val
-        form_val = request.form["myradio1"]
         search_string = request.form["search_string"]
-        print(form_val, 'inside the post method')
-        #print(search_string)
-        #print(data.get("myradio1"))
-
-        #radio = data.get("myradio1")
-
-        # return render_template('results.html',search_string=search_string)
         return redirect(url_for("resultsPage", search_stringss=search_string))
 
     def remove_char(x):
@@ -267,12 +253,11 @@ def resultsPage(search_stringss):
         try:
             for l in range(5):
                 try:
-                    print(form_val, 'outside the post method')
                     FeaturelistA=[]
                     FeaturelistF=[]
                     FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
                     AmazonList = BS4Azn.amzLists(search_stringss, i)
-                    
+
                     AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
                     FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
                     
