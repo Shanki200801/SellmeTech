@@ -7,6 +7,11 @@
   3. oauthlib
   4. pyOpenSSL
   5. Flask-Login
+  6. rauth
+  7. WTForms
+  8. Flask-WTF
+  9. Flask-SQLAlchemy
+  10. urllib3
 
 # Sample steps to run this project:
   1. Run app.py in flaskstuff
