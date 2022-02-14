@@ -127,6 +127,7 @@
         <br><br>
           <button class="button-18" type="submit" value="submit" role="button">Log in</button> 
         </form>
+        <a class="btn btn-primary" href="{{url_for('register')}}">Sign up</a>
       </div>
     </div>
   </div>
@@ -217,8 +218,10 @@
   </script>
   <!-- End Google Map -->
   <script>
-    function admin_alert(){
-      alert("Currently we only allow direct logins for admins. Please use google login unless you are admin")
+    function flash_checks(){
+      if("{{flash_message}}"==1){
+        alert("Account already exists");
+      }
     }
   </script>
   
