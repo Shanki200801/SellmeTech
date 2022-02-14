@@ -15,6 +15,7 @@ from flask_login import (
     logout_user,
 )
 from oauthlib.oauth2 import WebApplicationClient
+from sqlalchemy import null
 
 import BS4Azn
 import BS4fpkrt
@@ -23,6 +24,12 @@ import featureGrab
 # Internal imports
 from db import init_db_command
 from user import User
+from user import User2
+
+
+from flask_wtf import FlaskForm
+from wtforms import StringField,PasswordField,SubmitField,BooleanField
+from wtforms.validators import DataRequired,Email,EqualTo
 
 # Configuration
 GOOGLE_CLIENT_ID = "755960925170-ittebt844scr9v19617vqmf64b1a403c.apps.googleusercontent.com"
@@ -140,11 +147,20 @@ def login():
                 id_="12345", name="admin", email="admin@gmail.com", profile_pic="placeholder"
             )
             if not User.get("12345"):
-                User.create("12345", "admin", "admin@gmail.com", "placeholder")
+                User.create("12345", "admin", "admin@gmail.com", "https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743")
 
             # Begin user session by logging the user in
             login_user(user)
             return redirect(url_for("index"))
+        try:
+            if(User2.check_login(userID,pw)):            
+                user=User2.check_login(userID,pw)          
+                login_user(user)                
+                return redirect(url_for("index"))
+        except TypeError:
+                    
+            redirect(url_for("login"))
+        
 
     return render_template("login.html")
 
@@ -216,6 +232,33 @@ def logout():
         flag = 1
     return redirect(url_for("index"))
 
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    if request.method == "POST":
+        uname=request.form["username"]
+        email=request.form["email"]
+        password1=request.form["password"]
+        password2=request.form["confirm_password"]
+        if request.form["profile_pic"]=="":
+            profile_pic="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png"
+        else:
+            profile_pic=request.form["profile_pic"]
+        if not User2.get_pw(email):
+            if password1==password2:
+                User2.create(uname,email,password1,profile_pic)
+                user=User2.get(email)
+                login_user(user)
+                return redirect(url_for("index",flash_message=1))
+            else:
+                return redirect(url_for("register"))
+        else:
+            if User2.get(email):
+                print("you already have an account")
+                return redirect(url_for("login",flash_message=1))
+    return render_template("register.html",flash_message=1)
+
+ 
+
 @app.route("/userpage")
 def userpage():
     if current_user.is_authenticated and flag == 1:
@@ -252,41 +295,72 @@ def resultsPage(search_stringss):
 
     for i in range(10, 1, -1):
         try:
-            for l in range(5):
-                try:
-                    FeaturelistA=[]
-                    FeaturelistF=[]
-                    FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
-                    AmazonList = BS4Azn.amzLists(search_stringss, i)
+            FeaturelistA=[]
+            FeaturelistF=[]
+            FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
+            AmazonList = BS4Azn.amzLists(search_stringss, i)
 
-                    AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
-                    FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
+            AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
+            FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
+            
+            AmazonList[1] = [add_char(j) for j in AmazonList[1]]
+            FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
+
+            for j in range(i):
+                FeaturelistA.append(featureGrab.getAmzFeatures(AmazonList[2][j]))
+                FeaturelistF.append(featureGrab.getAmzFeatures(FlipkartList[2][j]))
+            print(FeaturelistA)
+            print(FeaturelistF)
+            return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList,featuresA=FeaturelistA,featuresF=FeaturelistF)
+
+
+        except IndexError as Iderr:
+            print(Iderr)
+            continue
+
+        except Exception as diffex:
+            print("different ex thrown" + str(diffex))
+            continue         
+
+    # for i in range(10, 1, -1):
+    #     try:
+    #         for l in range(5):
+    #             try:
+    #                 FeaturelistA=[]
+    #                 FeaturelistF=[]
+    #                 FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
+    #                 AmazonList = BS4Azn.amzLists(search_stringss, i)
+
+    #                 AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
+    #                 FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
                     
-                    AmazonList[1] = [add_char(j) for j in AmazonList[1]]
-                    FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
+    #                 AmazonList[1] = [add_char(j) for j in AmazonList[1]]
+    #                 FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
 
-                    for k in range(10):
-                        try:
-                            for j in range(i):
-                                FeaturelistA.append(featureGrab.getAmzFeatures(AmazonList[2][j]))
-                                FeaturelistF.append(featureGrab.getAmzFeatures(FlipkartList[2][j]))
-                        except:
-                            pass
-                    return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList,featuresA=FeaturelistA,featuresF=FeaturelistF)
+    #                 for k in range(10):
+    #                     try:
+    #                         for j in range(i):
+    #                             FeaturelistA.append(featureGrab.getAmzFeatures(AmazonList[2][j]))
+    #                             FeaturelistF.append(featureGrab.getAmzFeatures(FlipkartList[2][j]))
+    #                     except:
+    #                         pass
+    #                 return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList,featuresA=FeaturelistA,featuresF=FeaturelistF)
 
-                except IndexError as Iderr:
-                    print(Iderr)
-                    continue
+    #             except IndexError as Iderr:
+    #                 print(Iderr)
+    #                 continue
 
-                except Exception as diffex:
-                    print("different ex thrown" + str(diffex))
-                    continue        
-        except:
-            pass
+    #             except Exception as diffex:
+    #                 print("different ex thrown" + str(diffex))
+    #                 continue        
+    #     except:
+    #         pass
 
 @app.errorhandler(404)
 def error404(error):
     return render_template("error.html")
+
+
 
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)
