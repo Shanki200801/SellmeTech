@@ -15,7 +15,7 @@ from flask_login import (
     logout_user,
 )
 from oauthlib.oauth2 import WebApplicationClient
-from sqlalchemy import null
+#from sqlalchemy import null
 
 import BS4Azn
 import BS4fpkrt
@@ -291,76 +291,46 @@ def resultsPage(search_stringss):
         return float(clean)
 
     def add_char(x):
-        return "{:,}".format(x)
+        return "{:,}".format(x)         
 
     for i in range(10, 1, -1):
         try:
-            FeaturelistA=[]
-            FeaturelistF=[]
-            FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
-            AmazonList = BS4Azn.amzLists(search_stringss, i)
+            for l in range(5):
+                try:
+                    FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
+                    AmazonList = BS4Azn.amzLists(search_stringss, i)
 
-            AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
-            FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
-            
-            AmazonList[1] = [add_char(j) for j in AmazonList[1]]
-            FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
+                    AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
+                    FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
 
-            for j in range(i):
-                FeaturelistA.append(featureGrab.getAmzFeatures(AmazonList[2][j]))
-                FeaturelistF.append(featureGrab.getAmzFeatures(FlipkartList[2][j]))
-            print(FeaturelistA)
-            print(FeaturelistF)
-            return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList,featuresA=FeaturelistA,featuresF=FeaturelistF)
+                    AmazonList[1] = [add_char(j) for j in AmazonList[1]]
+                    FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
 
+                    return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList)
 
-        except IndexError as Iderr:
-            print(Iderr)
-            continue
+                except IndexError as Iderr:
+                    print(Iderr)
+                    continue
 
-        except Exception as diffex:
-            print("different ex thrown" + str(diffex))
-            continue         
+                except Exception as diffex:
+                    print("different ex thrown" + str(diffex))
+                    continue        
+        except:
+            pass
 
-    # for i in range(10, 1, -1):
-    #     try:
-    #         for l in range(5):
-    #             try:
-    #                 FeaturelistA=[]
-    #                 FeaturelistF=[]
-    #                 FlipkartList = BS4fpkrt.getNewlists(search_stringss, i)
-    #                 AmazonList = BS4Azn.amzLists(search_stringss, i)
+# @app.errorhandler(404)
+# def error404(error):
+#     return render_template("error.html")
 
-    #                 AmazonList[1] = [remove_char(j) for j in AmazonList[1]]
-    #                 FlipkartList[1] = [remove_char(j) for j in FlipkartList[1]]
-                    
-    #                 AmazonList[1] = [add_char(j) for j in AmazonList[1]]
-    #                 FlipkartList[1] = [add_char(j) for j in FlipkartList[1]]
-
-    #                 for k in range(10):
-    #                     try:
-    #                         for j in range(i):
-    #                             FeaturelistA.append(featureGrab.getAmzFeatures(AmazonList[2][j]))
-    #                             FeaturelistF.append(featureGrab.getAmzFeatures(FlipkartList[2][j]))
-    #                     except:
-    #                         pass
-    #                 return render_template("results.html",search_stringss=search_stringss,listF=FlipkartList,listA=AmazonList,featuresA=FeaturelistA,featuresF=FeaturelistF)
-
-    #             except IndexError as Iderr:
-    #                 print(Iderr)
-    #                 continue
-
-    #             except Exception as diffex:
-    #                 print("different ex thrown" + str(diffex))
-    #                 continue        
-    #     except:
-    #         pass
-
-@app.errorhandler(404)
-def error404(error):
-    return render_template("error.html")
-
-
+@app.route("/news/<page>", methods=["POST", "GET"])
+def tech_news(page):
+    import technews
+    #if request.method == "POST":
+    top_headlines = technews.top_articles(page)
+        #print(top_headlines)
+        #print(top_headlines[0]['source']['name'])
+        #return redirect(url_for("tech_news", page=page))        
+    return render_template("news.html", top_headlines=top_headlines, page=page)
 
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)
