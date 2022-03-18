@@ -32,6 +32,22 @@
   <!-- responsive style -->
   <link href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet" />
   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+  <!-- <link href="{{ url_for('static', filename='style2.css') }}" rel="stylesheet" /> -->
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}" >
 </head>
 
 <body>
@@ -42,9 +58,9 @@
     </div>
     <!-- header section strats -->
     <header class="header_section">
-      <div class="container">
+      <div class="container rounded-pill" id="bg2">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="{{url_for('home')}}">
+          <a class="navbar-brand" style="margin: 10px;" href="{{url_for('home')}}">
             <span>
               Sell me cell
             </span>
@@ -55,21 +71,21 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  ">
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only"></span></a>
+            <ul class="navbar-nav">             
+              <li class="nav-item" style="margin-left: 100px; padding-top: 0px;">
+                <a class="nav-link" href="{{url_for('index')}}">Home <span class="sr-only"></span></a>
               </li>
-            <li class="nav-item">
+            <li class="nav-item" style="padding-top: 0px;">
                 <a class="nav-link" href="{{url_for('about')}}"> About us</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" style="padding-top: 0px;">
                 <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" style="padding-top: 0px;">
                 <a class="nav-link" href="{{url_for('howtouse')}}">How to use</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="{{url_for('login')}}">Login</a>
+              <li class="nav-item" style="padding-top: 0px;">
+                <a class="nav-link" href="#">Login</a>
               </li>
             </ul>
           </div>
@@ -82,11 +98,11 @@
     <div class="container" style="width: 40%; margin-top:9%;">
       
       <h2>Login Page</h2><br> 
-      <div class='g-sign-in-button' style="position: relative; left: 210px; bottom: 25px;">
+      <div class='g-sign-in-button' style="position: relative; left: 200px; bottom: 25px;">
         <div class=content-wrapper>
             <div class='logo-wrapper'>
               <a class="button" href="{{url_for('loginG')}}">
-                <button type="button" class="login-with-google-btn">
+                <button type="button" class="login-with-google-btn rounded-pill">
                 Sign in with Google
               </button></a>
             </div>
@@ -108,7 +124,7 @@
               
             </div>
               <div class="col"> 
-                <input type="text" name="Uname" id="Uname" placeholder="Username" onclick="admin_alert()">                                                         
+                <input type="text" class="rounded-pill" name="Uname" id="Uname" placeholder="Username" onclick="admin_alert()">                                                         
             </div>                      
         </div>  
         <br>
@@ -121,13 +137,13 @@
         </label>
       </div>
       <div class="col">
-        <input type="Password" name="Pass" id="Pass" placeholder="Password">
+        <input type="Password" class="rounded-pill" name="Pass" id="Pass" placeholder="Password">
       </div>
         </div>
         <br><br>
           <button class="button-18" type="submit" value="submit" role="button">Log in</button> 
         </form>
-        <a class="btn btn-primary" href="{{url_for('register')}}">Sign up</a>
+        <a class="button-18" href="{{url_for('register')}}" style="margin: 20px;">Sign up</a>
       </div>
     </div>
   </div>
