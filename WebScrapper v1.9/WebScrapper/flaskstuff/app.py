@@ -332,5 +332,30 @@ def tech_news(page):
         #return redirect(url_for("tech_news", page=page))        
     return render_template("news.html", top_headlines=top_headlines, page=page)
 
+@app.route("/newsletter", methods=["GET", "POST"])
+def newsletter():
+
+    # if user submits the form
+    if request.method == "POST":
+
+        email = request.form.get('email')
+
+        subscribe_user(email=email,
+                       user_group_email="yournews@sandbox21350be7856646358b7c51226953c2d7.mailgun.org",
+                       api_key="4493bee0acba36a334957edf6d204f17-c3d1d1eb-71ae2c6d")
+
+    return render_template("newsletter.html")
+
+def subscribe_user(email, user_group_email, api_key):
+
+    resp = requests.post(f"https://api.mailgun.net/v3/lists/{user_group_email}/members",
+                         auth=("api", api_key),
+                         data={"subscribed": True,
+                               "address": email}
+                         )
+
+    print(resp.status_code)
+    return resp
+    
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)
